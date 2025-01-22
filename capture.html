@@ -1,0 +1,19 @@
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>写真を撮る</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>写真を撮る</h1>
+        <video id="camera" autoplay></video>
+        <button id="capture">写真を撮る</button>
+        <canvas id="snapshot" style="display:none;"></canvas>
+        <button onclick="saveData()">保存する</button>
+        <button onclick="navigateTo('index.html')">戻る</button>
+    </div>
+    <script src="capture.js"></script>
+</body>
+</html>
