@@ -39,6 +39,66 @@ img {
     height: auto;
     margin-bottom: 10px;
 }
+.navbar {
+    width: 100%;
+    background-color: #333;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+}
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+}
+.navbar a:hover {
+    background-color: #575757;
+    border-radius: 5px;
+}
+.logo-animation {
+    text-align: center;
+    margin-top: 20%;
+}
+.start-button {
+    text-align: center;
+    margin-top: 20px;
+}
+.frame {
+    position: relative;
+    width: 90%;
+    max-width: 300px;
+    background: linear-gradient(145deg, #ffd700, #d4af37);
+    border: 10px solid #b8860b;
+    border-radius: 10px;
+    box-shadow: 
+        0 0 10px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(0, 0, 0, 0.3),
+        inset 0 0 10px rgba(255, 255, 255, 0.5),
+        inset 0 0 20px rgba(255, 255, 255, 0.3);
+    padding: 15px;
+    overflow: hidden;
+    margin: 20px auto;
+}
+
+.frame:before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    border: 15px solid #daa520;
+    border-radius: 15px;
+    box-shadow: 
+        0 0 10px rgba(0, 0, 0, 0.6),
+        0 0 25px rgba(0, 0, 0, 0.4),
+        inset 0 0 15px rgba(255, 255, 255, 0.5),
+        inset 0 0 30px rgba(255, 255, 255, 0.3);
+    z-index: -1;
+}
+  
 h1 {
     font-size: 24px;
     margin: 20px 0;

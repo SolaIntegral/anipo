@@ -1,6 +1,8 @@
 const video = document.getElementById('camera');
 const canvas = document.getElementById('snapshot');
-const captureButton = document.getElementById('capture');
+const fileInput = document.getElementById('file-input');
+const useCameraButton = document.getElementById('use-camera');
+const useGalleryButton = document.getElementById('use-gallery');
 
 navigator.mediaDevices.getUserMedia({ video: true })
     .then(stream => {
@@ -8,6 +10,31 @@ navigator.mediaDevices.getUserMedia({ video: true })
     })
     .catch(err => console.error(err));
 
+useCameraButton.addEventListener('click', () => {
+    video.style.display = 'block';
+    fileInput.style.display = 'none';
+});
+
+useGalleryButton.addEventListener('click', () => {
+    fileInput.style.display = 'block';
+    video.style.display = 'none';
+    fileInput.click();
+});
+
+fileInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+            const imageData = reader.result;
+            localStorage.setItem('currentPhoto', imageData);
+            window.location.href = 'confirmation.html';
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+const captureButton = document.getElementById('capture');
 captureButton.addEventListener('click', () => {
     const context = canvas.getContext('2d');
     canvas.width = video.videoWidth;

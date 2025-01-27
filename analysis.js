@@ -1,12 +1,19 @@
-const analyzedPhoto = document.getElementById('analyzed-photo');
+const analyzedPhoto = document.getElementById('animal-photo');
 const garbageType = document.getElementById('garbage-type');
+const garbageDescription = document.getElementById('garbage-description');
 const environmentalImpact = document.getElementById('environmental-impact');
 
 const analyzePhoto = localStorage.getItem('analyzePhoto');
-if (analyzePhoto) {
-    analyzedPhoto.src = analyzePhoto;
+const gallery = JSON.parse(localStorage.getItem('gallery')) || [];
 
-    // Google Vision API を利用した解析例
+const animalImages = [
+    "fall-whale.png",
+    "sp-penguin.png",
+    "sum-tirtle.png",
+    "winter-otto.png"
+];
+
+if (analyzePhoto) {
     const apiKey = "AIzaSyCEjKKgfz9bXYnBAsw6lzBACxH7r8iIdOU";
     const apiUrl = `https://vision.googleapis.com/v1/images:annotate?key=${apiKey}`;
 
@@ -27,16 +34,32 @@ if (analyzePhoto) {
         .then(response => response.json())
         .then(data => {
             const labels = data.responses[0].labelAnnotations;
-            const detectedType = labels[0]?.description || "不明";
-            garbageType.textContent = `ごみの種類: ${detectedType}`;
+            const translations = {
+                "PET Bottle": "ペットボトル",
+                "Plastic Bag": "ビニール袋",
+                "Aluminum Can": "空き缶",
+                "Unknown": "不明"
+            };
 
-            // 環境影響の評価例 (仮のロジック)
-            const impact = detectedType === "ペットボトル" ? "高い" : "中程度";
-            environmentalImpact.textContent = `環境への影響: ${impact}`;
+            const detectedType = translations[labels[0]?.description] || "不明";
+            garbageType.textContent = `ごみの種類: ${detectedType}`;
+            garbageDescription.textContent = `説明: ${detectedType}はリサイクルできます。`;
+            environmentalImpact.textContent = "環境を守ろう！";
+
+            const randomAnimal = animalImages[Math.floor(Math.random() * animalImages.length)];
+            analyzedPhoto.src = randomAnimal;
+
+            gallery.push(randomAnimal);
+            localStorage.setItem('gallery', JSON.stringify(gallery));
         })
         .catch(err => {
             garbageType.textContent = "解析に失敗しました";
-            environmentalImpact.textContent = "影響を計算できませんでした";
-            console.error(err);
+            garbageDescription.textContent = "説明がありません";
+            environmentalImpact.textContent = "不明";
+            analyzedPhoto.src = "unknown_animal.jpg";
         });
+}
+
+function navigateTo(page) {
+    window.location.href = page;
 }

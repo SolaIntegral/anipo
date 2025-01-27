@@ -8,10 +8,12 @@
 <body>
     <div class="container">
         <h1>写真を撮る</h1>
-        <video id="camera" autoplay></video>
-        <button id="capture">写真を撮る</button>
+        <video id="camera" autoplay style="display: none;"></video>
+        <input type="file" id="file-input" accept="image/*" style="display: none;">
         <canvas id="snapshot" style="display:none;"></canvas>
-        <button onclick="navigateTo('index.html')">戻る</button>
+        <button id="use-camera">カメラを使用</button>
+        <button id="use-gallery">スマホ内の写真を選択</button>
+        <button onclick="location.href='home.html'">戻る</button>
     </div>
     <script src="capture.js"></script>
 </body>

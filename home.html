@@ -1,0 +1,24 @@
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ホーム</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="home.html">Home</a>
+        <a href="myanipo.html">My Anipo</a>
+        <a href="anipomuseum.html">Anipo Museum</a>
+    </nav>
+    <div class="container">
+        <h1>ごみ記録アプリ</h1>
+        <button onclick="navigateTo('capture.html')">写真を撮る</button>
+    </div>
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+    </script>
+</body>
+</html>
