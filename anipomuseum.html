@@ -4,6 +4,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anipo Museum</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0cdb79;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            color: white;
+        }
+        .navbar {
+            width: 100%;
+            background-color: #4cdb6d;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            padding: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .navbar a:hover {
+            background-color: #dcbf20;
+            border-radius: 8px;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(145deg, #4cdb6d, #dcbf20);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            margin: 20px;
+            width: 90%;
+            max-width: 800px;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .gallery-item {
+            width: 100%;
+            max-width: 150px;
+            aspect-ratio: 1 / 1;
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        button {
+            margin: 10px 0;
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #dcbf20;
+            color: black;
+            border: none;
+            border-radius: 8px;
+            width: 200px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #f7e26c;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -13,6 +96,11 @@
     </nav>
     <div class="container">
         <h1>Anipo Museum</h1>
+        <div class="gallery" id="museum-gallery">
+            <!-- Anipo images will be dynamically loaded here -->
+        </div>
+        <button onclick="navigateTo('home.html')">ホームに戻る</button>
     </div>
+    <script src="anipomuseum.js"></script>
 </body>
 </html>

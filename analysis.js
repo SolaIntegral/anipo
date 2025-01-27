@@ -6,15 +6,11 @@ const environmentalImpact = document.getElementById('environmental-impact');
 const analyzePhoto = localStorage.getItem('analyzePhoto');
 const gallery = JSON.parse(localStorage.getItem('gallery')) || [];
 
-const animalImages = [
-    "fall-whale.png",
-    "sp-penguin.png",
-    "sum-tirtle.png",
-    "winter-otto.png"
-];
+// 公開されているAnipo画像を取得
+const allAnipo = JSON.parse(localStorage.getItem('allAnipo')) || [];
 
 if (analyzePhoto) {
-    const apiKey = "AIzaSyCEjKKgfz9bXYnBAsw6lzBACxH7r8iIdOU";
+    const apiKey = "AIzaSyCEjKKgfz9bXYnBAsw6lzBACxH7r8iIdOU"; // APIキーを設定
     const apiUrl = `https://vision.googleapis.com/v1/images:annotate?key=${apiKey}`;
 
     const requestBody = {
@@ -46,10 +42,34 @@ if (analyzePhoto) {
             garbageDescription.textContent = `説明: ${detectedType}はリサイクルできます。`;
             environmentalImpact.textContent = "環境を守ろう！";
 
-            const randomAnimal = animalImages[Math.floor(Math.random() * animalImages.length)];
-            analyzedPhoto.src = randomAnimal;
+            // デフォルト画像のリスト
+            const defaultImages = [
+                "1.png",
+                "2.png",
+                "3.png",
+                "4.png",
+                "5.png",
+                "6.png",
+                "7.png",
+                "8.png",
+                "9.png",
+                "10.png",
+                "11.png",
+                "12.png",
+            ];
 
-            gallery.push(randomAnimal);
+            // デフォルト画像と公開画像を結合
+            const combinedImages = allAnipo.concat(defaultImages);
+
+            // 解析結果表示用
+            if (combinedImages.length > 0) {
+                const randomAnipo = combinedImages[Math.floor(Math.random() * combinedImages.length)];
+                analyzedPhoto.src = randomAnipo;
+            } else {
+                analyzedPhoto.src = "unknown_animal.jpg"; // 公開画像がない場合のデフォルト
+            }
+            // 保存したランダムAnipoをギャラリーに追加
+            gallery.push(analyzedPhoto.src);
             localStorage.setItem('gallery', JSON.stringify(gallery));
         })
         .catch(err => {
@@ -63,3 +83,5 @@ if (analyzePhoto) {
 function navigateTo(page) {
     window.location.href = page;
 }
+
+

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anipo作成</title>
+    <!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anipo作成</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0cdb79;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            color: white;
+        }
+        .navbar {
+            width: 100%;
+            background-color: #4cdb6d;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            padding: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .navbar a:hover {
+            background-color: #dcbf20;
+            border-radius: 8px;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(145deg, #4cdb6d, #dcbf20);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            margin: 20px;
+            width: 90%;
+            max-width: 800px;
+        }
+        input[type="file"] {
+            margin: 20px 0;
+        }
+        #preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .preview-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+        }
+        button {
+            margin: 10px 0;
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #dcbf20;
+            color: black;
+            border: none;
+            border-radius: 8px;
+            width: 200px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #f7e26c;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="home.html">Home</a>
+        <a href="myanipo.html">My Anipo</a>
+        <a href="anipomuseum.html">Anipo Museum</a>
+    </nav>
+    <div class="container">
+        <h1>新しいAnipoを作成</h1>
+        <input type="file" id="anipo-input" accept="image/*" multiple>
+        <div id="preview-container"></div>
+        <button id="save-anipo">保存する</button>
+        <p id="status-message"></p>
+        <button onclick="navigateTo('home.html')">ホームに戻る</button>
+    </div>
+    <script>
+        const anipoInput = document.getElementById('anipo-input');
+        const saveAnipoButton = document.getElementById('save-anipo');
+        const statusMessage = document.getElementById('status-message');
+        const previewContainer = document.getElementById('preview-container');
+
+        // プレビューの表示
+        anipoInput.addEventListener('change', (event) => {
+            previewContainer.innerHTML = ''; // 既存のプレビューをクリア
+            const files = event.target.files;
+
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const img = document.createElement('img');
+                    img.src = reader.result;
+                    img.classList.add('preview-image');
+                    previewContainer.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        // 保存処理
+        saveAnipoButton.addEventListener('click', () => {
+            const files = anipoInput.files;
+            if (files.length > 0) {
+                const newAnipoImages = [];
+                let loadedCount = 0; // 読み込み完了カウンター
+
+                Array.from(files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        newAnipoImages.push(reader.result);
+                        loadedCount++;
+
+                        // 全ての画像がロードされた場合
+                        if (loadedCount === files.length) {
+                            let animalImages = JSON.parse(localStorage.getItem('animalImages')) || [];
+                            let allAnipo = JSON.parse(localStorage.getItem('allAnipo')) || []; // 公開データ
+
+                            animalImages = animalImages.concat(newAnipoImages);
+                            allAnipo = allAnipo.concat(newAnipoImages); // 公開画像にも追加
+
+                            localStorage.setItem('animalImages', JSON.stringify(animalImages));
+                            localStorage.setItem('allAnipo', JSON.stringify(allAnipo)); // 保存
+
+                            statusMessage.textContent = `${files.length} 件のAnipoを保存して公開しました！`;
+                        }
+                    };
+                    reader.onerror = () => {
+                        statusMessage.textContent = "画像の読み込みに失敗しました。";
+                    };
+                    reader.readAsDataURL(file);
+                });
+            } else {
+                statusMessage.textContent = "画像を選択してください。";
+            }
+        });
+
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+    </script>
+</body>
+</html>

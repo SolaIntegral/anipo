@@ -3,7 +3,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ホーム</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* styles.css */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #0cdb79;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        min-height: 100vh;
+        color: white;
+    }
+    .container {
+        text-align: center;
+        padding: 20px;
+        background: linear-gradient(145deg, #4cdb6d, #dcbf20);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 15px;
+        margin: 20px;
+        width: 90%;
+        max-width: 500px;
+    }
+    button {
+        margin: 10px 0;
+        padding: 15px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #dcbf20;
+        color: black;
+        border: none;
+        border-radius: 8px;
+        width: 100%;
+        box-sizing: border-box;
+        transition: background-color 0.3s ease;
+    }
+    button:hover {
+        background-color: #f7e26c;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+    }
+    .navbar {
+        width: 100%;
+        background-color: #4cdb6d;
+        overflow: hidden;
+        display: flex;
+        justify-content: space-around;
+        padding: 10px 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .navbar a {
+        text-decoration: none;
+        color: white;
+        font-size: 16px;
+        padding: 10px;
+        transition: background-color 0.3s ease;
+    }
+    .navbar a:hover {
+        background-color: #dcbf20;
+        border-radius: 8px;
+    }
+    .logo-animation {
+        text-align: center;
+        margin-top: 20%;
+        color: #dcbf20;
+        font-size: 48px;
+        animation: fadeIn 2s ease-in-out;
+    }
+    .start-button {
+        text-align: center;
+        margin-top: 20px;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -12,8 +93,13 @@
         <a href="anipomuseum.html">Anipo Museum</a>
     </nav>
     <div class="container">
-        <h1>ごみ記録アプリ</h1>
+        <h1>ごみを記録する</h1>
         <button onclick="navigateTo('capture.html')">写真を撮る</button>
+    </div>
+    <div class="container">
+        <h1>Anipo作成</h1>
+        <button onclick="navigateTo('anipocreate.html')">Anipoをつくる
+        </button>
     </div>
     <script>
         function navigateTo(page) {
